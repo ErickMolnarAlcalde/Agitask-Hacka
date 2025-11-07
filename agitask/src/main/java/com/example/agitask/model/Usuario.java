@@ -28,6 +28,10 @@ public class Usuario {
     private String senha;
     private String email;
 
+    private Boolean ativo;
+
+    private Boolean ferias;
+
     @Enumerated(EnumType.STRING)
     private CargoUsuario cargo;
 
