@@ -6,45 +6,21 @@ import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.model.Usuario;
 import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
-public class UsuarioMapper {
+@Mapper(componentModel = "spring")
+public interface UsuarioMapper {
 
-    private final UsuarioRepository usuarioRepository;
+    UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
 
-    public Usuario toEntity(UsuarioRequestDTO requestDTO){
+    // RequestDTO → Entidade
+    Usuario toEntity(UsuarioRequestDTO dto);
 
-        Usuario usuario = new Usuario();
-        usuario.setNome(requestDTO.nome());
-        usuario.setEmail(requestDTO.email());
-        usuario.setSenha(requestDTO.senha());
-        usuario.setCargo(requestDTO.cargo());
+    // Entidade → ResponseDTO
+    UsuarioResponseDTO toResponseDTO(Usuario entity);
 
-        return usuario;
-    }
-
-    public UsuarioResponseDTO toResponse(Usuario usuario){
-        return new UsuarioResponseDTO(
-                usuario.getNome(),
-                usuario.getEmail(),
-                usuario.getCargo()
-        );
-    }
-
-    public Usuario toAlter(String email, UsuarioRequestDTO requestDTO){
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(()->
-                new UsuarioGestorEmailNotFoundException("email não encontrado"));
-        usuario.setNome(requestDTO.nome());
-        usuario.setEmail(requestDTO.email());
-        usuario.setSenha(requestDTO.senha());
-        usuario.setCargo(requestDTO.cargo());
-
-        return usuario;
-    }
-
-
-
-
+    // Lista de entidades → Lista de ResponseDTO
+    List<UsuarioResponseDTO> toResponseDTOList(List<Usuario> entities);
 }
