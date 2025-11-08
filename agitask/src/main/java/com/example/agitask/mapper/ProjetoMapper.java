@@ -27,6 +27,8 @@ public class ProjetoMapper {
         projeto.setPriorizacao(requestDTO.priorizacao());
         projeto.setTipo(requestDTO.tipo());
         projeto.setPrazo(requestDTO.prazo());
+        projeto.setDataCriacao(LocalDateTime.now());
+        projeto.setStatus(Status.PENDENTE);
 
         Usuario usuarioGestor = usuarioRepository.findByEmail(requestDTO.emailGestor()).
                 orElseThrow(()-> new UsuarioGestorEmailNotFoundException("email do gestor não encontrado!"));
@@ -34,15 +36,19 @@ public class ProjetoMapper {
 
         Usuario usuarioSurpevisor = usuarioRepository.findByEmail(requestDTO.emailSupervisor()).
                 orElseThrow(()-> new UsuarioSupervisorEmailNotFoundException("email do surpevisor não encontrado!"));
-        projeto.setGestor(usuarioSurpevisor);
+        projeto.setSupervisor(usuarioSurpevisor);
 
         return projeto;
     }
 
-    public ProjetoResponseDTO toResponse(Projeto projeto){
-        return new ProjetoResponseDTO(projeto.getTitulo(), projeto.getDescricao(),
-                Status.PENDENTE, projeto.getPriorizacao(), projeto.getTipo(),
-                LocalDateTime.now(),projeto.getPrazo());
+    public ProjetoResponseDTO toResponse(Projeto projeto) {
+        return new ProjetoResponseDTO(
+                projeto.getTitulo(), projeto.getDescricao(), projeto.getStatus(),
+                projeto.getPriorizacao(), projeto.getTipo(), LocalDateTime.now(),
+                projeto.getPrazo(), projeto.getGestor() != null ? projeto.getGestor().getEmail() : null,
+                projeto.getSupervisor() != null ? projeto.getSupervisor().getEmail() : null,
+                projeto.getColaborador() != null ? projeto.getColaborador().getEmail() : null
+        );
     }
 
 

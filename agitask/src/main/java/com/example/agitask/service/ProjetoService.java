@@ -30,6 +30,10 @@ public class ProjetoService {
 
         Projeto projeto = projetoMapper.toEntity(requestDTO);
 
+        if(!(projeto.getTipo() == Tipo.PROJETO)){
+            throw new ProjetoIsNotProjetoException("Somente criação de projetos são possiveis neste serviço!");
+        }
+
         if (projeto.getGestor().getCargo() == CargoUsuario.GESTOR && projeto.getGestor().getSenha().equals(requestDTO.senha())) {
             projetoRepository.save(projeto);
             ProjetoResponseDTO responseDTO = projetoMapper.toResponse(projeto);
@@ -44,7 +48,21 @@ public class ProjetoService {
     public ProjetoResponseDTO createTarefa(ProjetoRequestDTO requestDTO){
 
         Projeto projeto = projetoMapper.toEntity(requestDTO);
+        Projeto projetoPai = projetoRepository.findById(requestDTO.projetoPai()).orElseThrow(()->
+                new ProjetoIdNotFoundException("Id do projeto não encontrado!"));
+        projeto.getProjetoPai();
+        projeto.setProjetoPai(projetoPai);
 
+        if(!(projeto.getTipo() == Tipo.TAREFA)){
+            throw new ProjetoIsNotTarefaException("Somente criação de tarefas são possiveis neste serviço!");
+        }
+
+        if (requestDTO.emailColaborador() != null) {
+            Usuario colaborador = usuarioRepository.findByEmail(requestDTO.emailColaborador())
+                    .orElseThrow(() -> new UsuarioColaboradorEmailNotFoundException(
+                            "email do colaborador não encontrado"));
+            projeto.setColaborador(colaborador);
+        }
 
         if (projeto.getSupervisor().getCargo() == CargoUsuario.SUPERVISOR
                 && projeto.getSupervisor().getSenha().equals(requestDTO.senha())
@@ -60,12 +78,16 @@ public class ProjetoService {
 
     }
 
-    public ProjetoResponseDTO updateGestor(UUID id, ProjetoUpdateRequestDTO requestDTO) {
-        Projeto projeto = projetoRepository.findById(id).orElseThrow(() ->
+    public ProjetoResponseDTO updateGestor(ProjetoUpdateRequestDTO requestDTO) {
+        Projeto projeto = projetoRepository.findById(requestDTO.id()).orElseThrow(() ->
                 new ProjetoIdNotFoundException("id do projeto não encontrado"));
 
         Usuario usuario = usuarioRepository.findByEmail(requestDTO.email()).orElseThrow(()->
                 new UsuarioGestorEmailNotFoundException("Email do gestor não encontrado!"));
+        if(!(usuario.getCargo()==CargoUsuario.GESTOR && usuario.getSenha().equals(requestDTO.senha()))){
+            throw new UsuarioIsNotGestorException("Apenas gestores podem fazer updates neste serviço");
+        }
+
         if (usuario.getCargo() == CargoUsuario.GESTOR && usuario.getSenha().equals(requestDTO.senha())) {
 
             if (requestDTO.titulo() != null) {
@@ -93,13 +115,13 @@ public class ProjetoService {
             }
 
             if (requestDTO.emailGestor() != null) {
-                Usuario usuarioGestor = usuarioRepository.findByEmail(requestDTO.email()).
+                Usuario usuarioGestor = usuarioRepository.findByEmail(requestDTO.emailGestor()).
                         orElseThrow(() -> new UsuarioGestorEmailNotFoundException("email do gestor não encontrado!"));
                 projeto.setGestor(usuarioGestor);
             }
             if (requestDTO.emailSupervisor() != null) {
-                Usuario usuarioSupervisor = usuarioRepository.findByEmail(requestDTO.email()).
-                        orElseThrow(() -> new UsuarioGestorEmailNotFoundException("email do gestor não encontrado!"));
+                Usuario usuarioSupervisor = usuarioRepository.findByEmail(requestDTO.emailSupervisor()).
+                        orElseThrow(() -> new UsuarioSupervisorEmailNotFoundException("email do supervisor não encontrado!"));
                 projeto.setGestor(usuarioSupervisor);
             }
 
@@ -110,12 +132,22 @@ public class ProjetoService {
         return projetoMapper.toResponse(projetoAtualizado);
     }
 
-    public ProjetoResponseDTO updateSupervisor(UUID id, ProjetoUpdateRequestDTO requestDTO) {
-        Projeto projeto = projetoRepository.findById(id).orElseThrow(() ->
+    public ProjetoResponseDTO updateSupervisor(ProjetoUpdateRequestDTO requestDTO) {
+        Projeto projeto = projetoRepository.findById(requestDTO.id()).orElseThrow(() ->
                 new ProjetoIdNotFoundException("id do projeto não encontrado"));
 
         Usuario usuario = usuarioRepository.findByEmail(requestDTO.email()).orElseThrow(()->
                 new UsuarioGestorEmailNotFoundException("Email do supervisor não encontrado!"));
+        if(!(usuario.getCargo()==CargoUsuario.GESTOR && usuario.getSenha().equals(requestDTO.senha())
+                || usuario.getCargo()==CargoUsuario.SUPERVISOR && usuario.getSenha().equals(requestDTO.senha()))){
+            throw new UsuarioIsNotGestorOrSupervisorException("Apenas gestores ou supervisores podem fazer updates neste serviço");
+        }
+
+            if(!(projeto.getTipo() ==Tipo.TAREFA)){
+                throw  new ProjetoIsNotTarefaException("Apenas tarefas podem ser alterados por este serviço!");
+            }
+
+
         if (usuario.getCargo() == CargoUsuario.SUPERVISOR
                 && usuario.getSenha().equals(requestDTO.senha())
                 && projeto.getTipo() == Tipo.TAREFA) {
@@ -145,14 +177,14 @@ public class ProjetoService {
             }
 
             if (requestDTO.emailGestor() != null) {
-                Usuario usuarioGestor = usuarioRepository.findByEmail(requestDTO.email()).
+                Usuario usuarioGestor = usuarioRepository.findByEmail(requestDTO.emailGestor()).
                         orElseThrow(() -> new UsuarioGestorEmailNotFoundException("email do gestor não encontrado!"));
                 projeto.setGestor(usuarioGestor);
             }
             if (requestDTO.emailSupervisor() != null) {
-                Usuario usuarioSupervisor = usuarioRepository.findByEmail(requestDTO.email()).
-                        orElseThrow(() -> new UsuarioGestorEmailNotFoundException("email do gestor não encontrado!"));
-                projeto.setGestor(usuarioSupervisor);
+                Usuario usuarioSupervisor = usuarioRepository.findByEmail(requestDTO.emailSupervisor()).
+                        orElseThrow(() -> new UsuarioSupervisorEmailNotFoundException("email do supervisor não encontrado!"));
+                projeto.setSupervisor(usuarioSupervisor);
             }
 
         }
@@ -162,21 +194,20 @@ public class ProjetoService {
         return projetoMapper.toResponse(projetoAtualizado);
     }
 
-    public ProjetoResponseDTO updateColaborador(UUID id, ProjetoUpdateRequestDTO requestDTO) {
-        Projeto projeto = projetoRepository.findById(id).orElseThrow(() ->
+    public ProjetoResponseDTO updateColaborador(ProjetoUpdateRequestDTO requestDTO) {
+        Projeto projeto = projetoRepository.findById(requestDTO.id()).orElseThrow(() ->
                 new ProjetoIdNotFoundException("id do projeto não encontrado"));
 
         Usuario usuario = usuarioRepository.findByEmail(requestDTO.email()).orElseThrow(()->
                 new UsuarioGestorEmailNotFoundException("Email do colaborador não encontrado!"));
-        if (usuario.getCargo() == CargoUsuario.COLABORADOR
-                && usuario.getSenha().equals(requestDTO.senha())
-               ) {
 
+        if(!(projeto.getTipo() ==Tipo.TAREFA)){
+            throw  new ProjetoIsNotTarefaException("Apenas tarefas podem ser alterados por este serviço!");
+        }
             if (requestDTO.status() != null) {
                 projeto.setStatus(requestDTO.status());
             }
 
-        }
 
         Projeto projetoAtualizado = projetoRepository.save(projeto);
 
@@ -206,6 +237,14 @@ public class ProjetoService {
 
         Usuario usuarioGestor = usuarioRepository.findByEmail(projetoDeleteDto.email()).orElseThrow(()->
                 new UsuarioGestorEmailNotFoundException("Email do gestor não encontrado!"));
+
+        Projeto projeto1 = projetoRepository.findById(projetoDeleteDto.id()).orElseThrow(()->
+                new ProjetoIdNotFoundException("Id do projeto não encontrado!"));
+
+        if(!(projeto1.getTipo() ==Tipo.PROJETO)){
+            throw  new ProjetoIsNotTarefaException("Apenas projetos podem ser deletados por este serviço!");
+        }
+
         if (usuarioGestor.getCargo() == CargoUsuario.GESTOR && usuarioGestor.getSenha().equals(projetoDeleteDto.senha())) {
             Projeto projeto = projetoRepository.findById(projetoDeleteDto.id()).orElseThrow(()->
                             new ProjetoIdNotFoundException("Id do projeto não encontrado"));
@@ -224,6 +263,14 @@ public class ProjetoService {
 
         Usuario usuarioSupervisor = usuarioRepository.findByEmail(projetoDeleteDto.email()).orElseThrow(()->
                 new UsuarioSupervisorEmailNotFoundException("Email do supervisor não encontrado!"));
+
+        Projeto projeto1 = projetoRepository.findById(projetoDeleteDto.id()).orElseThrow(()->
+                new ProjetoIdNotFoundException("Id do projeto não encontrado!"));
+
+        if(!(projeto1.getTipo() ==Tipo.TAREFA)){
+            throw  new ProjetoIsNotTarefaException("Projetos não podem ser deletados por este serviço!");
+        }
+
         if (usuarioSupervisor.getCargo() == CargoUsuario.SUPERVISOR
                 && usuarioSupervisor.getSenha().equals(projetoDeleteDto.senha()) ||
         usuarioGestor.getCargo() == CargoUsuario.GESTOR
@@ -234,7 +281,7 @@ public class ProjetoService {
             projetoRepository.delete(projeto);
 
         }else{
-            throw new UsuarioIsNotGestorException("Apenas gestor pode deletar projetos!");
+            throw new UsuarioIsNotGestorOrSupervisorException("Apenas gestor ou supervisor pode deletar tarefas!");
         }
     }
 

@@ -13,7 +13,7 @@ import lombok.*;
 public class Time {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTime;
     /*
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)

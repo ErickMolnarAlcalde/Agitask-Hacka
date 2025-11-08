@@ -1,11 +1,9 @@
 package com.example.agitask.service;
 
-import com.example.agitask.dto.ProjetoRequest;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
 import com.example.agitask.mapper.UsuarioMapper;
-import com.example.agitask.model.Projeto;
 import com.example.agitask.model.Usuario;
 import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
