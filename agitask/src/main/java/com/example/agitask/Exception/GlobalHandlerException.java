@@ -85,10 +85,16 @@ public class GlobalHandlerException {
 
         String message = "Violação de integridade: valor duplicado detectado.";
 
-        if (ex.getMessage().contains("tb_funcionario_email_key")) {
-            message = "O email informado já está cadastrado.";
-        } else if (ex.getMessage().contains("tb_funcionario_cpf_key")) {
+        String lowerMsg = ex.getMessage().toLowerCase();
+
+        if (lowerMsg.contains("tb_usuario_email_key")) {
+            message = "O e-mail informado já está cadastrado para outro usuário.";
+        } else if (lowerMsg.contains("tb_usuario_cpf_key")) {
             message = "O CPF informado já está cadastrado.";
+        } else if (lowerMsg.contains("tb_tarefa_titulo_key")) {
+            message = "Já existe uma tarefa com este título.";
+        } else if (lowerMsg.contains("tb_comprovacao")) {
+            message = "Erro ao registrar a comprovação — verifique se a tarefa existe e os dados estão corretos.";
         }
 
         ErrorDto errorDto = new ErrorDto(
@@ -98,6 +104,7 @@ public class GlobalHandlerException {
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDto); // 409 CONFLICT
     }
+
 
     //Serve para pegar erros genericos
     @ExceptionHandler(RuntimeException.class)
