@@ -7,7 +7,6 @@ import com.example.agitask.dto.ProjetoResponseDTO;
 import com.example.agitask.enums.Status;
 import com.example.agitask.model.Projeto;
 import com.example.agitask.model.Usuario;
-import com.example.agitask.repository.ProjetoRepository;
 import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

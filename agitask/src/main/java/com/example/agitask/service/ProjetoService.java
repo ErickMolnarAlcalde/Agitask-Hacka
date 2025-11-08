@@ -1,5 +1,6 @@
 package com.example.agitask.service;
 
+import com.example.agitask.enums.Status;
 import com.example.agitask.exception.*;
 import com.example.agitask.dto.ProjetoDeleteDto;
 import com.example.agitask.dto.ProjetoRequestDTO;
@@ -15,6 +16,7 @@ import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -100,6 +102,9 @@ public class ProjetoService {
 
             if (requestDTO.status() != null) {
                 projeto.setStatus(requestDTO.status());
+                if(projeto.getStatus()== Status.CONCLUIDO){
+                    projeto.setDataConclusao(LocalDateTime.now());
+                }
             }
 
             if (requestDTO.priorizacao() != null) {
@@ -162,6 +167,9 @@ public class ProjetoService {
 
             if (requestDTO.status() != null) {
                 projeto.setStatus(requestDTO.status());
+                if(projeto.getStatus()== Status.CONCLUIDO){
+                    projeto.setDataConclusao(LocalDateTime.now());
+                }
             }
 
             if (requestDTO.priorizacao() != null) {
@@ -206,6 +214,9 @@ public class ProjetoService {
         }
             if (requestDTO.status() != null) {
                 projeto.setStatus(requestDTO.status());
+                if(projeto.getStatus()== Status.CONCLUIDO){
+                    projeto.setDataConclusao(LocalDateTime.now());
+                }
             }
 
 

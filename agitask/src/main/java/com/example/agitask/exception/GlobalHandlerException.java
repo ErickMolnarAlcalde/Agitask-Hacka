@@ -132,10 +132,4 @@ public class GlobalHandlerException {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
     }
 
-
-
-
-
-
-
 }
