@@ -12,6 +12,7 @@ public record ProjetoRequestDTO(
         Tipo tipo,
         LocalDateTime prazo,
         String emailGestor,
-        String emailSupervisor
+        String emailSupervisor,
+        String senha
 ) {
 }

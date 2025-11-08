@@ -56,6 +56,27 @@ public class GlobalHandlerException {
         );
         return errorDto;
     }
+    @ExceptionHandler(UsuarioIsNotGestorException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto usuarioIsNotGestorException(UsuarioSupervisorEmailNotFoundException ex){
+        ErrorDto errorDto = new ErrorDto(
+                ex.getMessage(),
+                "Por gentileza, verificar as informações fornecidas",
+                LocalDateTime.now()
+        );
+        return errorDto;
+    }
+
+    @ExceptionHandler(UsuarioIsNotGestorOrSupervisorException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto UsuarioIsNotGestorOrSupervisorException(UsuarioIsNotGestorOrSupervisorException ex){
+        ErrorDto errorDto = new ErrorDto(
+                ex.getMessage(),
+                "Por gentileza, verificar as informações fornecidas",
+                LocalDateTime.now()
+        );
+        return errorDto;
+    }
 
 
     //testa erro de integridade
