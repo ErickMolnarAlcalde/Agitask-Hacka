@@ -1,7 +1,7 @@
 package com.example.agitask.service;
 
-import com.example.agitask.Exception.ProjetoIdNotFoundException;
-import com.example.agitask.Exception.UsuarioColaboradorEmailNotFoundException; // Usada para representar "Usuário Autor não encontrado"
+import com.example.agitask.exception.ProjetoIdNotFoundException;
+import com.example.agitask.exception.UsuarioColaboradorEmailNotFoundException; // Usada para representar "Usuário Autor não encontrado"
 import com.example.agitask.dto.ComprovacaoRequestDTO;
 import com.example.agitask.dto.ComprovacaoResponseDTO;
 import com.example.agitask.model.Comprovacao;
