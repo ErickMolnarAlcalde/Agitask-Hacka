@@ -16,6 +16,7 @@ public class UsuarioMapper {
     private final UsuarioRepository usuarioRepository;
 
     public Usuario toEntity(UsuarioRequestDTO requestDTO){
+
         Usuario usuario = new Usuario();
         usuario.setNome(requestDTO.nome());
         usuario.setEmail(requestDTO.email());

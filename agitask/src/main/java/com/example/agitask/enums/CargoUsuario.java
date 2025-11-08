@@ -4,4 +4,5 @@ public enum CargoUsuario {
     COLABORADOR,
     GESTOR,
     SUPERVISOR,
+    ADMIN,
 }
