@@ -1,5 +1,6 @@
 package com.example.agitask.controller;
 
+import com.example.agitask.dto.UsuarioFeriasRequestDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.service.UsuarioService;
@@ -46,15 +47,15 @@ public class UsuarioController {
 
     // TODO: Implementar endpoints de atualização de usuário
 
-    @PatchMapping("/ferias_on/{email}")
-    public ResponseEntity<UsuarioResponseDTO> ativarFerias(@PathVariable String email) {
-        UsuarioResponseDTO usuario = usuarioService.entrarDeFerias(email);
+    @PatchMapping("/ferias_on/")
+    public ResponseEntity<UsuarioResponseDTO> ativarFerias(@RequestBody UsuarioFeriasRequestDTO requestDTO) {
+        UsuarioResponseDTO usuario = usuarioService.entrarDeFerias(requestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(usuario);
     }
 
-    @PatchMapping("/ferias_off/{email}")
-    public ResponseEntity<UsuarioResponseDTO> desativarFerias(@PathVariable String email) {
-        UsuarioResponseDTO usuario = usuarioService.voltarDeFerias(email);
+    @PatchMapping("/ferias_off")
+    public ResponseEntity<UsuarioResponseDTO> desativarFerias(@RequestBody UsuarioFeriasRequestDTO requestDTO) {
+        UsuarioResponseDTO usuario = usuarioService.voltarDeFerias(requestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(usuario);
     }
 

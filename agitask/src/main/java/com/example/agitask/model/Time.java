@@ -29,6 +29,7 @@ public class Time {
             joinColumns = @JoinColumn(name = "id_time"),
             inverseJoinColumns = @JoinColumn(name = "id_colaborador")
     )
+    @Builder.Default
     private List<Usuario> colaboradores = new ArrayList<>();
 
     public void adicionarColaborador(Usuario usuario) {

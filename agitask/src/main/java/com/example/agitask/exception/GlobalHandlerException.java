@@ -46,6 +46,16 @@ public class GlobalHandlerException {
         );
         return errorDto;
     }
+    @ExceptionHandler(UsuarioEmailNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto usuarioEmailNotFound(UsuarioEmailNotFound ex){
+        ErrorDto errorDto = new ErrorDto(
+                ex.getMessage(),
+                "Por gentileza, verificar as informações fornecidas",
+                LocalDateTime.now()
+        );
+        return errorDto;
+    }
 
     @ExceptionHandler(com.example.agitask.exception.UsuarioSupervisorEmailNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
