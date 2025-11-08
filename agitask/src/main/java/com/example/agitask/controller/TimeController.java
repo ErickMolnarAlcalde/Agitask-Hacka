@@ -2,7 +2,6 @@ package com.example.agitask.controller;
 
 import com.example.agitask.dto.TimeRequestDTO;
 import com.example.agitask.dto.TimeResponseDTO;
-import com.example.agitask.model.Time;
 import com.example.agitask.service.TimeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
