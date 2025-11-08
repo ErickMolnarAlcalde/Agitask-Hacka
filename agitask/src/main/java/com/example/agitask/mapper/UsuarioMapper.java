@@ -2,6 +2,7 @@ package com.example.agitask.mapper;
 
 import com.example.agitask.exception.UsuarioGestorEmailNotFoundException;
 import com.example.agitask.dto.UsuarioRequestDTO;
+import com.example.agitask.dto.UsuarioLoginRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.model.Usuario;
 import com.example.agitask.repository.UsuarioRepository;
@@ -19,6 +20,7 @@ public interface UsuarioMapper {
 
     // RequestDTO → Entidade
     Usuario toEntity(UsuarioRequestDTO dto);
+    Usuario toEntity(UsuarioLoginRequestDTO dto);
 
     // Entidade → ResponseDTO
     UsuarioResponseDTO toResponseDTO(Usuario entity);

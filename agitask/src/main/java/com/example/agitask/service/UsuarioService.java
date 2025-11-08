@@ -1,5 +1,6 @@
 package com.example.agitask.service;
 
+import com.example.agitask.dto.UsuarioLoginRequestDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
@@ -18,6 +19,15 @@ public class UsuarioService {
 
     private final UsuarioMapper usuarioMapper;
     private final UsuarioRepository usuarioRepository;
+
+    @Transactional
+    public boolean loginUsuario(UsuarioLoginRequestDTO dto) {
+        Usuario usuario = buscarPorEmail(dto.getEmail());
+        if (!usuario.getSenha().equals(dto.getSenha())) {
+            throw new RuntimeException("Senha incorreta.");
+        }
+        return true;
+    }
 
     @Transactional
     public UsuarioResponseDTO criarUsuarioPorAdmin(UsuarioRequestDTO usuarioRequestDTO) {
