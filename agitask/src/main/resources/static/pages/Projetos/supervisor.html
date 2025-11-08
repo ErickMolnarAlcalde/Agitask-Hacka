@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisor - Gerenciar Tarefas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../css/projetosGestor.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <div>
+    <div class="logo">
+      <img src="../../assets/logoescura.png" alt="AgiTask Logo" class="logo-img">
+    </div>
+
+    <ul class="menu">
+      <li><i class="ri-dashboard-line"></i> Dashboard</li>
+      <li ><i class="ri-user-settings-line"></i> Gerenciar Usuários</li>
+      <li><i class="ri-team-line"></i> Gerenciar Equipes</li>
+      <li><i class="ri-file-chart-line"></i> Relatórios</li>
+      <li class="active"><i class="ri-folder-settings-line"></i> Gerenciar Projetos</li>
+    </ul>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar-content">
+    <h1>Gerenciar Tarefas</h1>
+    <button class="btn-primary"><i class="fa-solid fa-plus"></i> Criar Tarefa</button>
+  </div>
+
+  <div class="filter-section">
+    <h3>Filtros Tarefas</h3>
+    <div class="filter-dropdown">
+      <i class="fa-solid fa-filter"></i> Filtros
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Seqlhe tag do Search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+  </div>
+
+  <div class="kanban-board">
+
+    <div class="kanban-column">
+      <div class="column-header to-do">A Fazer</div>
+
+      <div class="kanban-card">
+        <div class="card-title">Reuniao| Kickoff</div>
+        <div class="card-tag tag-beta">[BETA]</div>
+        <div class="card-details">
+          <div class="card-users">
+            <div class="user-info"><i class="fa-solid fa-user-circle"></i> João Souza</div>
+          </div>
+          <div class="card-status-dot status-orange"></div>
+        </div>
+        <div class="card-details">
+          <div class="user-info"><i class="fa-solid fa-calendar-alt"></i> 15/11 10:30</div>
+        </div>
+      </div>
+
+      <div class="kanban-card">
+        <div class="card-title">Configurar Servivor</div>
+        <div class="card-tag tag-support">[SUPORTE]</div>
+        <div class="card-details">
+          <div class="user-info"><i class="fa-solid fa-calendar-alt"></i> 01/11 18:00</div>
+          <div class="card-status-dot status-red"></div>
+        </div>
+      </div>
+
+      <div class="kanban-card">
+        <div class="card-title">Configurar Servivor</div>
+        <div class="card-details">
+          <div class="user-info"><i class="fa-solid fa-user-circle"></i> Pedro Alves</div>
+        </div>
+        <div class="card-details">
+          <div class="user-info"><i class="fa-solid fa-calendar-alt"></i> 01/12 17:00</div>
+          <div class="card-status-dot status-green"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="kanban-column">
+      <div class="column-header in-progress">Em Andamaho</div>
+
+      <div class="kanban-card">
+        <div class="card-title">Revisar Mockups</div>
+        <div class="card-tag tag-beta">[BETA]</div>
+        <div class="card-details">
+          <div class="card-users">
+            <div class="user-info"><i class="fa-solid fa-user-circle"></i> Maria Souza</div>
+          </div>
+          <div class="card-status-dot status-red"></div>
+        </div>
+        <div class="card-details">
+          <div class="user-info"><i class="fa-solid fa-calendar-alt"></i> 11/11 10:00</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="kanban-column">
+      <div class="column-header review">Revisão</div>
+
+      <div class="kanban-card">
+        <div class="card-title">[ALPHA]</div>
+        <div class="card-tag tag-alpha">[ALPHA]</div>
+        <div class="card-details">
+          <div class="card-users">
+            <div class="user-info"><i class="fa-solid fa-user-circle"></i> João Souza</div>
+            <div class="user-info"><i class="fa-solid fa-user-circle"></i> Pedro Alves</div>
+          </div>
+          <div class="card-status-dot status-orange"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="kanban-column">
+      <div class="column-header done">Concluido</div>
+
+      <div class="kanban-card">
+        <div class="card-title">Testes Finais</div>
+        <div class="card-tag tag-alpha">[ALPHA]</div>
+        <div class="card-details">
+          <div class="card-users">
+            <div class="user-info"><i class="fa-solid fa-user-circle"></i> Ana Costa</div>
+          </div>
+          <div class="card-status-dot status-partial"></div>
+        </div>
+        <div class="card-details">
+          <div class="user-info"><i class="fa-solid fa-calendar-alt"></i> 25/11 09:00</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
