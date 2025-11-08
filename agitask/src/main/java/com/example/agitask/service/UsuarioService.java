@@ -1,6 +1,5 @@
 package com.example.agitask.service;
 
-import com.example.agitask.dto.ProjetoRequestDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;

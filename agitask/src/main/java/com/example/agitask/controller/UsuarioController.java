@@ -19,6 +19,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+
     @PostMapping("/admin")
     public ResponseEntity<UsuarioResponseDTO> criarUsuarioPorAdmin(@RequestBody UsuarioRequestDTO dto) {
         UsuarioResponseDTO usuario = usuarioService.criarUsuarioPorAdmin(dto);
