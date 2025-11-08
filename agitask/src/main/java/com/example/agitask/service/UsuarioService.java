@@ -4,13 +4,13 @@ import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
 import com.example.agitask.mapper.UsuarioMapper;
-import com.example.agitask.model.Projeto;
 import com.example.agitask.model.Usuario;
 import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,6 +28,8 @@ public class UsuarioService {
         }
 
         Usuario novoUsuario = usuarioMapper.toEntity(usuarioRequestDTO);
+        novoUsuario.setFerias(false);
+        novoUsuario.setAtivo(true);
         Usuario salvo = usuarioRepository.save(novoUsuario);
         return usuarioMapper.toResponse(salvo);
     }
@@ -102,6 +104,7 @@ public class UsuarioService {
             throw new RuntimeException("Usuário já está de férias.");
         }
         usuario.setFerias(true);
+        usuario.setDataEntradaFerias(LocalDateTime.now());
         Usuario emFerias = usuarioRepository.save(usuario);
         return usuarioMapper.toResponse(emFerias);
     }
@@ -113,6 +116,7 @@ public class UsuarioService {
             throw new RuntimeException("Usuário não está de férias.");
         }
         usuario.setFerias(false);
+        usuario.setDataSaidaFerias(LocalDateTime.now());
         Usuario voltou = usuarioRepository.save(usuario);
         return usuarioMapper.toResponse(voltou);
     }

@@ -3,10 +3,12 @@ package com.example.agitask.model;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +33,12 @@ public class Usuario {
     private Boolean ativo;
 
     private Boolean ferias;
+
+    @Column(name = "data_entrada_ferias")
+    private LocalDateTime dataEntradaFerias;
+
+    @Column(name = "data_saida_ferias")
+    private LocalDateTime dataSaidaFerias;
 
     @Enumerated(EnumType.STRING)
     private CargoUsuario cargo;

@@ -13,6 +13,9 @@ public record ProjetoResponseDTO(
         Priorizacao priorizacao,
         Tipo tipo,
         LocalDateTime dataCriacao,
-        LocalDateTime prazo
+        LocalDateTime prazo,
+        String emailGestor,
+        String emailSupervisor,
+        String emailColaborador
 ) {
 }

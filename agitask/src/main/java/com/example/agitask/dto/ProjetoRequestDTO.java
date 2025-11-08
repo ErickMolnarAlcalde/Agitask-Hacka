@@ -4,6 +4,7 @@ import com.example.agitask.enums.Priorizacao;
 import com.example.agitask.enums.Tipo;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record ProjetoRequestDTO(
         String titulo,
@@ -13,6 +14,9 @@ public record ProjetoRequestDTO(
         LocalDateTime prazo,
         String emailGestor,
         String emailSupervisor,
-        String senha
+        String senha,
+        UUID projetoPai,
+        String emailColaborador
+
 ) {
 }
