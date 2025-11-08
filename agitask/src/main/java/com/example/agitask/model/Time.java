@@ -23,20 +23,20 @@ public class Time {
     @JoinColumn(name = "id_supervisor")
     private Usuario supervisor;
 
-    @ManyToMany
-    @JoinTable(
-            name = "time_colaboradores",
-            joinColumns = @JoinColumn(name = "id_time"),
-            inverseJoinColumns = @JoinColumn(name = "id_colaborador")
-    )
-    private List<Usuario> colaboradores = new ArrayList<>();
+    // Associação com TimeColaborador
+    @OneToMany(mappedBy = "time", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TimeColaborador> timeColaboradores = new ArrayList<>();
 
+    // Adiciona colaborador ao time criando o vínculo
     public void adicionarColaborador(Usuario usuario) {
-        this.colaboradores.add(usuario);
+        TimeColaborador tc = new TimeColaborador();
+        tc.setTime(this);
+        tc.setColaborador(usuario);
+        this.timeColaboradores.add(tc);
     }
 
+    // Remove colaborador do time
     public void removerColaborador(Usuario usuario) {
-        this.colaboradores.remove(usuario);
+        timeColaboradores.removeIf(tc -> tc.getColaborador().equals(usuario));
     }
-
 }
