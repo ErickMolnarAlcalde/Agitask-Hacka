@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ProjetoMapper {
 
-    private final ProjetoRepository projetoRepository;
     private final UsuarioRepository usuarioRepository;
 
     public Projeto toEntity(ProjetoRequestDTO requestDTO){
