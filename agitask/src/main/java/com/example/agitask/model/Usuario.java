@@ -36,13 +36,13 @@ public class Usuario {
     private CargoUsuario cargo;
 
     @OneToMany(mappedBy = "gestor")
-    private List<Tarefa> tarefaGerenciadas;
+    private List<Projeto> tarefaGerenciadas;
 
     @OneToMany(mappedBy = "supervisor")
-    private List<Tarefa> tarefaSupervisionadas;
+    private List<Projeto> tarefaSupervisionadas;
 
     @OneToMany(mappedBy = "colaborador")
-    private List<Tarefa> tarefaExecutadas;
+    private List<Projeto> tarefaExecutadas;
 
     public Usuario(UsuarioRequestDTO dados) {
         this.nome = dados.nome();

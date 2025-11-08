@@ -1,5 +1,6 @@
 package com.example.agitask.mapper;
 
+import com.example.agitask.Exception.UsuarioGestorEmailNotFoundException;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.model.Usuario;
@@ -36,7 +37,7 @@ public class UsuarioMapper {
 
     public Usuario toAlter(String email, UsuarioRequestDTO requestDTO){
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(()->
-                new RuntimeException("email não encontrado"));
+                new UsuarioGestorEmailNotFoundException("email não encontrado"));
         usuario.setNome(requestDTO.nome());
         usuario.setEmail(requestDTO.email());
         usuario.setSenha(requestDTO.senha());

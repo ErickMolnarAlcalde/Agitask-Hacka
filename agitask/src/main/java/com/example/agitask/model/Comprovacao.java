@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tb_comparacao")
+@Table(name = "tb_comprovacao")
 @Setter
 @Getter
 @NoArgsConstructor
