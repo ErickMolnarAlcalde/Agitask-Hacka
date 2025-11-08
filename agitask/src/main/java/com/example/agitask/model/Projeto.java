@@ -2,7 +2,6 @@ package com.example.agitask.model;
 
 import com.example.agitask.enums.Priorizacao;
 import com.example.agitask.enums.Status;
-import com.example.agitask.model.Usuario;
 import com.example.agitask.enums.Tipo;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
@@ -21,7 +20,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tarefa {
+public class Projeto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,20 +30,21 @@ public class Tarefa {
 
     private String descricao;
 
+    //PENDENTE, ANDAMENTO, CONCLUIDO,ATRASADO
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    //BAIXA, MEDIA, ALTA, URGENTE
     @Enumerated(EnumType.STRING)
     private Priorizacao priorizacao;
 
+    //PROJETO, TAREFA
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
 
     private LocalDateTime dataCriacao;
 
     private LocalDateTime prazo;
-
-    private String observacao;
 
     @ManyToOne
     @JoinColumn(name = "gestor_id")
@@ -59,10 +59,13 @@ public class Tarefa {
     private Usuario colaborador;
 
     @ManyToOne
-    @JoinColumn(name = "tarefa_pai_id")
-    private Tarefa tarefaPai;
+    @JoinColumn(name = "projeto_pai_id")
+    private Projeto projetoPai;
 
-    @OneToMany(mappedBy = "tarefaPai", cascade = CascadeType.ALL)
-    private List<Tarefa> subtarefas;
+    @OneToMany(mappedBy = "projetoPai", cascade = CascadeType.ALL)
+    private List<Projeto> tarefas;
+
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
+    private List<Comprovacao> comprovacoes;
 
 }
