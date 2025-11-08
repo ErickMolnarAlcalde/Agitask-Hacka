@@ -1,4 +1,8 @@
 package com.example.agitask.enums;
 
-public class CargoUsuario {
+public enum CargoUsuario {
+    COLABORADOR,
+    GESTOR,
+    SUPERVISOR,
+    ADMIN,
 }
