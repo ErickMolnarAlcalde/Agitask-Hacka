@@ -9,7 +9,8 @@ import lombok.*;
 @Builder
 public class TimeRequestDTO {
 
-    private List<Usuario> idSupervisorResponsavel;
-    private List<Usuario> idUsuarioColaborador;
+    private Long idTime;
+    /*private List<Usuario> idSupervisorResponsavel;
+    private List<Usuario> idUsuarioColaborador;*/
 
 }

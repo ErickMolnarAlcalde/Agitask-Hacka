@@ -10,7 +10,7 @@ import lombok.*;
 public class TimeResponseDTO {
 
     private Long idTime;
-    private List<Usuario> idSupervisorResponsavel;
-    private List<Usuario> idUsuarioColaborador;
+    /*private List<Usuario> idSupervisorResponsavel;
+    private List<Usuario> idUsuarioColaborador;*/
 
 }
