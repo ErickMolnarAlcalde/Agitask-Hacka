@@ -7,6 +7,10 @@ import jakarta.validation.constraints.NotBlank;
 public record UsuarioRequestDTO(
 
         @NotBlank
+        @Email
+        String emailCargo,
+
+        @NotBlank
         String nome,
 
         @NotBlank
