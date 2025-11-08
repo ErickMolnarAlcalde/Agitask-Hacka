@@ -46,19 +46,5 @@ public class Usuario {
 
     @OneToMany(mappedBy = "colaborador")
     private List<Tarefa> tarefaExecutadas;
-
-
-    public Usuario(UsuarioRequestDTO dados) {
-        this.nome = dados.nome();
-        this.senha = dados.senha();
-        this.email = dados.email();
-        this.cargo = dados.cargo();
-    }
-
-    public Usuario(UsuarioResponseDTO dados) {
-        this.nome = dados.nome();
-        this.email = dados.email();
-        this.cargo = dados.cargo();
-    }
     */
 }
