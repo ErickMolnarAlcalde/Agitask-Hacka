@@ -1,16 +1,22 @@
 package com.example.agitask.service;
 
 import com.example.agitask.dto.UsuarioLoginRequestDTO;
+import com.example.agitask.dto.UsuarioLoginResponseDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
+import com.example.agitask.exception.UsuarioEmailNotFound;
+import com.example.agitask.exception.UsuarioIsNotGestorException;
 import com.example.agitask.mapper.UsuarioMapper;
+import com.example.agitask.model.Projeto;
 import com.example.agitask.model.Usuario;
+import com.example.agitask.repository.ProjetoRepository;
 import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,12 +27,12 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
 
     @Transactional
-    public Usuario loginUsuario(UsuarioLoginRequestDTO dto) {
+    public UsuarioLoginResponseDTO loginUsuario(UsuarioLoginRequestDTO dto) {
         Usuario usuario = buscarPorEmail(dto.getEmail());
         if (!usuario.getSenha().equals(dto.getSenha())) {
             throw new RuntimeException("Senha incorreta.");
         }
-        return usuario;
+        return usuarioMapper.toLoginResponseDTO(usuario);
     }
 
     @Transactional
@@ -110,8 +116,53 @@ public class UsuarioService {
         if (usuario.getFerias()) {
             throw new RuntimeException("Usuário já está de férias.");
         }
+
+        // Redistribuição das tarefas com base no cargo
+        switch (usuario.getCargo()) {
+
+            case COLABORADOR -> {
+                for (Projeto tarefa : usuario.getTarefaExecutadas()) {
+                    Usuario supervisor = tarefa.getSupervisor();
+                    if (supervisor == null) {
+                        throw new RuntimeException("Tarefa sem supervisor definido, não pode ser redistribuída!");
+                    }
+                    tarefa.setColaborador(supervisor); // supervisor assume como colaborador temporário
+                    projetoRepository.save(tarefa);
+                }
+            }
+
+            case SUPERVISOR -> {
+                for (Projeto tarefa : usuario.getTarefaSupervisionadas()) {
+                    Usuario gestor = tarefa.getGestor();
+                    if (gestor == null) {
+                        throw new RuntimeException("Tarefa sem gestor definido, não pode ser redistribuída!");
+                    }
+                    tarefa.setSupervisor(null); // supervisor original sai
+                    tarefa.setColaborador(gestor); // gestor assume temporariamente como colaborador
+                    projetoRepository.save(tarefa);
+                }
+            }
+
+            case GESTOR -> {
+                for (Projeto tarefa : usuario.getTarefaGerenciadas()) {
+                    Usuario supervisor = tarefa.getSupervisor();
+                    if (supervisor == null) {
+                        throw new RuntimeException("Tarefa sem supervisor definido, não pode ser redistribuída!");
+                    }
+                    tarefa.setGestor(null); // gestor original sai
+                    tarefa.setColaborador(supervisor); // supervisor assume temporariamente como colaborador
+                    projetoRepository.save(tarefa);
+                }
+            }
+
+            default -> throw new RuntimeException("Cargo não tratado para férias");
+        }
+
+        // Atualizar usuário como em férias
         usuario.setFerias(true);
+        usuario.setDataEntradaFerias(LocalDateTime.now());
         Usuario emFerias = usuarioRepository.save(usuario);
+
         return usuarioMapper.toResponseDTO(emFerias);
     }
 
@@ -121,6 +172,7 @@ public class UsuarioService {
         if (!usuario.getFerias()) {
             throw new RuntimeException("Usuário não está de férias.");
         }
+
         usuario.setFerias(false);
         Usuario voltou = usuarioRepository.save(usuario);
         return usuarioMapper.toResponseDTO(voltou);

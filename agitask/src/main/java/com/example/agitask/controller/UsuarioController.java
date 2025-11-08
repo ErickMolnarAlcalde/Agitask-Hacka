@@ -1,10 +1,9 @@
 package com.example.agitask.controller;
 
-import com.example.agitask.dto.UsuarioFeriasRequestDTO;
 import com.example.agitask.dto.UsuarioLoginRequestDTO;
+import com.example.agitask.dto.UsuarioLoginResponseDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
-import com.example.agitask.model.Usuario;
 import com.example.agitask.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +22,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public Usuario loginUsuario(@RequestBody UsuarioLoginRequestDTO dto) {
-        return usuarioService.loginUsuario(dto);
+    public UsuarioLoginResponseDTO loginUsuario(@RequestBody UsuarioLoginRequestDTO dto) {
+        UsuarioLoginResponseDTO login = usuarioService.loginUsuario(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(login).getBody();
     }
 
     @PostMapping("/admin")
@@ -53,15 +53,15 @@ public class UsuarioController {
 
     // TODO: Implementar endpoints de atualização de usuário
 
-    @PatchMapping("/ferias_on/")
-    public ResponseEntity<UsuarioResponseDTO> ativarFerias(@RequestBody UsuarioFeriasRequestDTO requestDTO) {
-        UsuarioResponseDTO usuario = usuarioService.entrarDeFerias(requestDTO);
+    @PatchMapping("/ferias_on/{email}")
+    public ResponseEntity<UsuarioResponseDTO> ativarFerias(@PathVariable String email) {
+        UsuarioResponseDTO usuario = usuarioService.entrarDeFerias(email);
         return ResponseEntity.status(HttpStatus.OK).body(usuario);
     }
 
-    @PatchMapping("/ferias_off")
-    public ResponseEntity<UsuarioResponseDTO> desativarFerias(@RequestBody UsuarioFeriasRequestDTO requestDTO) {
-        UsuarioResponseDTO usuario = usuarioService.voltarDeFerias(requestDTO);
+    @PatchMapping("/ferias_off/{email}")
+    public ResponseEntity<UsuarioResponseDTO> desativarFerias(@PathVariable String email) {
+        UsuarioResponseDTO usuario = usuarioService.voltarDeFerias(email);
         return ResponseEntity.status(HttpStatus.OK).body(usuario);
     }
 

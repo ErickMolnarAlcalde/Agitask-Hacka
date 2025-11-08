@@ -17,5 +17,5 @@ public class UsuarioResponseDTO {
         private String email;
         private Boolean ativo;
         private Boolean ferias;
-        private CargoUsuario cargo;
+        private String cargo;
 }
