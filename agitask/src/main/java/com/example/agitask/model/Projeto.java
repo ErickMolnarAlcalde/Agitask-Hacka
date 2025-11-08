@@ -52,7 +52,7 @@ public class Projeto {
 
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
-    private Usuario surpevisor;
+    private Usuario supervisor;
 
     @ManyToOne
     @JoinColumn(name = "colaborador_id")
