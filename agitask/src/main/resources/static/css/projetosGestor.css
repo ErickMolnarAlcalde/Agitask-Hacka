@@ -1,0 +1,460 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #f5f6fa;
+    height: 100vh;
+    overflow: hidden; /* Evitar scroll desnecessário no body */
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background-color: #333333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+.logo {
+    text-align: center;
+    padding: 0px 37px;
+}
+
+/* Estilo para o ícone customizado AG M */
+.logo-agim {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.logo-agim .m-char {
+    font-size: 40px;
+    font-weight: 900;
+    color: #007aff;
+    line-height: 0.8;
+    position: relative;
+}
+
+.logo-agim .ag {
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-right: -5px;
+}
+
+
+
+/* MAIN */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* TOP BAR (Ajustado para o cabeçalho da imagem) */
+.topbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.topbar h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0064cc;
+}
+
+/* SUB-NAVEGAÇÃO (Filtros superiores) */
+.sub-nav {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.sub-nav-item {
+    padding: 10px 0;
+    font-size: 15px;
+    color: #555;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+}
+
+.sub-nav-item.active {
+    color: #007aff;
+    font-weight: 600;
+}
+
+.sub-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007aff;
+}
+
+/* FILTROS E BUSCA */
+.filter-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-section h3 {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.filter-dropdown {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-bar {
+    flex-grow: 1;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 15px;
+    padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-bar i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+}
+
+/* KANBAN BOARD */
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    flex-grow: 1;
+    overflow-x: auto;
+}
+
+.kanban-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.column-header {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.column-header.to-do { border-color: #007aff; }
+.column-header.in-progress { border-color: #ff9800; }
+.column-header.review { border-color: #673ab7; }
+.column-header.done { border-color: #4caf50; }
+
+.kanban-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+    cursor: grab;
+}
+
+.kanban-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.card-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.tag-beta { background-color: #ffcc80; color: #e65100; }
+.tag-support { background-color: #c5cae9; color: #3949ab; }
+.tag-alpha { background-color: #ffcdd2; color: #c62828; }
+
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.card-users {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-info i {
+    font-size: 14px;
+}
+
+.user-info span {
+    font-size: 12px;
+}
+
+.card-status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-red { background-color: #f44336; }
+.status-orange { background-color: #ff9800; }
+.status-green { background-color: #4caf50; }
+/* Simula a barra de progresso parcial na imagem */
+.status-partial {
+    background: linear-gradient(to right, #4caf50 50%, #f44336 50%);
+    border-radius: 4px; /* Ajuste o formato para parecer mais com uma barra/status */
+    width: 30px; /* Largura ajustada para ser visível */
+}
+
+/* Regras de tabela não utilizadas no layout Kanban da imagem, mas mantidas do CSS original */
+.logo-icon {
+    font-size: 36px;
+    font-weight: 900;
+    color: #007aff;
+}
+.logo h2 {
+    font-size: 22px;
+    margin-top: 5px;
+}
+.logo .agi {
+    color: #fff;
+}
+.logo .tesk {
+    color: #007aff;
+}
+.colors {
+    font-size: 12px;
+    color: #ccc;
+    text-align: center;
+    line-height: 1.6;
+}
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.user-actions i {
+    font-size: 20px;
+    color: #444;
+    cursor: pointer;
+}
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.form-section {
+    background: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+form {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #555;
+}
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+button {
+    grid-column: span 1;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #0064cc;
+}
+.table-section {
+    background: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.table-section h3 {
+    margin-bottom: 15px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+th {
+    background-color: #f1f1f1;
+    font-weight: 600;
+}
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+.logo {
+
+    padding: 0px 37px;
+    text-align: center;
+}
+
+.logo-img {
+    width: 150px;
+    height: auto;
+    display: block;
+}
+.btn-acao {
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin: 0 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.editar {
+    background-color: #007bff;
+    color: white;
+}
+.editar:hover {
+    background-color: #0056b3;
+}
+.excluir {
+    background-color: #dc3545;
+    color: white;
+}
+.excluir:hover {
+    background-color: #c82333;
+}
+td:last-child {
+    text-align: center;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 25px 25px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #ccc;
+  transition: 0.3s;
+}
+
+.menu li:hover,
+.menu li.active {
+  background-color: #007aff;
+  color: #fff;
+}
