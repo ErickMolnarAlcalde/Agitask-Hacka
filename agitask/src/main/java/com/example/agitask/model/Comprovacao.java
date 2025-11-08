@@ -18,18 +18,14 @@ import java.util.UUID;
 public class Comprovacao {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id; //
+    private UUID id;
 
-    private String descricao; //
+    private String descricao;
 
-    private LocalDateTime dataCriacao; //
+    private LocalDateTime dataCriacao;
 
     @ManyToOne
     @JoinColumn(name = "projeto_id")
-    private Projeto projeto; // Chave estrangeira para Projeto/Tarefa
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario autor; // Chave estrangeira para o Usuário autor
-
+    private Projeto projeto;
+    
 }
