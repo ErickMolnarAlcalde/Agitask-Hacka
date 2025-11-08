@@ -5,9 +5,7 @@ import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +13,9 @@ import java.util.UUID;
 @Table(name = "Usuarios")
 @Entity(name = "Usuarios")
 @Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 
 public class Usuario {
