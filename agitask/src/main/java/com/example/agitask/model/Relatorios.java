@@ -3,7 +3,6 @@ package com.example.agitask.model;
 import com.example.agitask.dto.RelatoriosRequestDTO;
 import com.example.agitask.dto.RelatoriosResponseDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
