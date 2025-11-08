@@ -3,6 +3,9 @@ package com.example.agitask.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "times")
 @Getter
@@ -15,11 +18,25 @@ public class Time {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTime;
-    /*
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Usuario> idSupervisorResponsavel;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Usuario> idUsuarioColaborador;
-    */
+
+    @ManyToOne
+    @JoinColumn(name = "id_supervisor")
+    private Usuario supervisor;
+
+    @ManyToMany
+    @JoinTable(
+            name = "squad_colaboradores",
+            joinColumns = @JoinColumn(name = "id_time"),
+            inverseJoinColumns = @JoinColumn(name = "id_colaborador")
+    )
+    private List<Usuario> colaboradores = new ArrayList<>();
+
+    public void adcionarColaborador(Usuario usuario) {
+        this.colaboradores.add(usuario);
+    }
+
+    public void removerColaborador(Usuario usuario) {
+        this.colaboradores.remove(usuario);
+    }
 
 }
