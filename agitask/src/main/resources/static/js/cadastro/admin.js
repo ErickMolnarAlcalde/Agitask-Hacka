@@ -1,68 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('cadastroUsuarioForm');
-    const mensagemStatus = document.getElementById('mensagemStatus');
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('senha');
 
-    // URL da API. Ajuste para o endereço correto da sua API.
-    // Usando o endpoint '/admin' conforme a sua estrutura de Controller
-    const API_URL = 'http://localhost:8080/usuarios/admin';
+    const loginUrl = 'http://localhost:8080/usuarios/login';
+    const usuarioUrl = 'http://localhost:8080/usuarios';
 
-    // Simulação do email do usuário logado (Admin/Gestor) que está fazendo o cadastro.
-    // ISTO DEVE SER SUBSTITUÍDO PELO EMAIL REAL DO USUÁRIO AUTENTICADO EM PRODUÇÃO.
-    const EMAIL_DO_USUARIO_LOGADO = "usuario_logado@agitask.com";
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    // Função auxiliar para atualizar o feedback visual
-    function updateStatus(message, type) {
-        mensagemStatus.textContent = message;
-        mensagemStatus.className = ''; // Limpa classes
-        mensagemStatus.classList.add(`status-${type}`);
-    }
+        const email = emailInput.value.trim();
+        const senha = passwordInput.value.trim();
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Impede o envio tradicional
+        if (!email || !senha) {
+            alert('Por favor, preencha e-mail e senha.');
+            return;
+        }
 
-        // 1. Coleta dos dados
-        const dadosCadastro = {
-            nome: document.getElementById('nome').value,
-            email: document.getElementById('email').value,
-            senha: document.getElementById('senha').value,
-            cargo: document.getElementById('cargo').value,
-            equipe: document.getElementById('equipe').value,
-            // Seu DTO espera 'emailCargo'
-            emailCargo: EMAIL_DO_USUARIO_LOGADO
-        };
+        const userData = { email, senha };
 
-        // 2. Feedback de carregamento
-        updateStatus('Cadastrando usuário...', 'loading');
-
-        // 3. Requisição Fetch
         try {
-            const resposta = await fetch(API_URL, {
+            // --- 1️⃣ Faz o login (validação de credenciais)
+            const response = await fetch(loginUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // **ADICIONE AQUI O TOKEN JWT SE USAR AUTENTICAÇÃO:**
-                    // 'Authorization': 'Bearer ' + seuToken
-                },
-                body: JSON.stringify(dadosCadastro)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
             });
 
-            // 4. Lida com a Resposta
-            const resultado = await resposta.json();
-
-            if (resposta.ok) {
-                // Sucesso (Status 201 Created)
-                updateStatus(`✅ Usuário '${resultado.nome}' cadastrado com sucesso!`, 'success');
-                form.reset(); // Limpa o formulário
-            } else {
-                // Erro do servidor (Ex: Email já cadastrado)
-                const erroMsg = resultado.message || `Erro de Servidor. Status: ${resposta.status}`;
-                updateStatus(`❌ Falha no cadastro: ${erroMsg}`, 'error');
-                console.error('Detalhes do Erro do Servidor:', resultado);
+            if (!response.ok) {
+                alert('Erro no servidor ao tentar fazer login.');
+                return;
             }
+
+            const loginValido = await response.json();
+
+            if (!loginValido) {
+                alert('Credenciais inválidas. Verifique seu e-mail e senha.');
+                return;
+            }
+
+            // --- 2️⃣ Busca os dados do usuário
+            const userResponse = await fetch(`${usuarioUrl}/${encodeURIComponent(email)}`);
+            if (!userResponse.ok) {
+                alert('Não foi possível carregar os dados do usuário.');
+                return;
+            }
+
+            const user = await userResponse.json();
+            const cargo = user.cargo?.toUpperCase();
+
+            if (!cargo) {
+                alert('Cargo do usuário não encontrado.');
+                return;
+            }
+
+            // --- 3️⃣ Redireciona conforme o cargo
+            switch (cargo) {
+                case 'ADMIN':
+                    window.location.href = '../Cadastro/admin.html';
+                    break;
+                case 'GESTOR':
+                    window.location.href = '../Cadastro/gestor.html';
+                    break;
+                case 'SUPERVISOR':
+                    window.location.href = '../Projetos/supervisor.html';
+                    break;
+                case 'COLABORADOR':
+                    window.location.href = '../Projetos/colaborador.html';
+                    break;
+                default:
+                    alert('Perfil não reconhecido.');
+                    window.location.href = '/login.html';
+            }
+
         } catch (error) {
-            // Erro de rede ou erro de código
-            console.error('Erro na requisição de cadastro:', error);
-            updateStatus('🚨 Erro de conexão com o servidor. Verifique se a API está rodando.', 'error');
+            console.error('Erro de conexão ou processamento:', error);
+            alert('Não foi possível conectar ao servidor.');
         }
     });
 });

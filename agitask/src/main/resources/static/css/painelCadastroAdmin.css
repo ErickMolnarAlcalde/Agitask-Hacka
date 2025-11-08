@@ -108,12 +108,6 @@ body {
   cursor: pointer;
 }
 
-.avatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-}
-
 .form-section {
   background: white;
   margin-top: 20px;
@@ -158,6 +152,8 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
+  box-sizing: border-box;
+
 }
 
 button:hover {

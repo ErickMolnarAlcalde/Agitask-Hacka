@@ -21,12 +21,12 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
 
     @Transactional
-    public boolean loginUsuario(UsuarioLoginRequestDTO dto) {
+    public Usuario loginUsuario(UsuarioLoginRequestDTO dto) {
         Usuario usuario = buscarPorEmail(dto.getEmail());
         if (!usuario.getSenha().equals(dto.getSenha())) {
             throw new RuntimeException("Senha incorreta.");
         }
-        return true;
+        return usuario;
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package com.example.agitask.controller;
 import com.example.agitask.dto.UsuarioLoginRequestDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
+import com.example.agitask.model.Usuario;
 import com.example.agitask.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public boolean loginUsuario(@RequestBody UsuarioLoginRequestDTO dto) {
+    public Usuario loginUsuario(@RequestBody UsuarioLoginRequestDTO dto) {
         return usuarioService.loginUsuario(dto);
     }
 

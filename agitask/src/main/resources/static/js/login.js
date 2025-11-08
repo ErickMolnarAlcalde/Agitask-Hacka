@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('senha');
 
     // **Ajuste o endpoint se necessário**
-    const loginUrl = 'http://localhost:8080/usuarios';
+    const loginUrl = 'http://localhost:8080/usuarios/login';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -41,20 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- Lógica de Redirecionamento (4 Perfis, 4 Telas) ---
             switch (cargo) {
                 case 'ADMIN':
-                    window.location.href = '../Cadastro/admin.html';
+                    window.location.href = '/pages/Projetos/Cadastro/admin.html';
                     break;
                 case 'GESTOR':
-                    window.location.href = '../Cadastro/gestor.html';
+                    window.location.href = '/pages/Projetos/Cadastro/gestor.html';
                     break;
                 case 'SUPERVISOR':
-                    window.location.href = '../Projetos/supervisor.html';
+                    window.location.href = '/pages/Projetos/supervisor.html';
                     break;
                 case 'COLABORADOR':
-                    window.location.href = '../Projetos/colaborador.html';
+                    window.location.href = '/pages/Projetos/colaborador.html';
                     break;
                 default:
                     alert('Perfil não reconhecido.');
-                    window.location.href = '/login.html';
+                    window.location.href = '/index.html';
             }
 
         } catch (error) {
