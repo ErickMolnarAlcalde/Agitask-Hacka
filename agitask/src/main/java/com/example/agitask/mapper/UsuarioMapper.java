@@ -1,5 +1,6 @@
 package com.example.agitask.mapper;
 
+import com.example.agitask.exception.UsuarioGestorEmailNotFoundException;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.model.Usuario;
@@ -8,9 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {

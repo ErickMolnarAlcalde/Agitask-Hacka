@@ -51,11 +51,14 @@ public class ProjetoController {
         return ResponseEntity.noContent().build();
     }
 
+
     @PutMapping("/alterar-por-gestor")
     public ResponseEntity<ProjetoResponseDTO> alterarPorGestor(
                                                             @RequestBody ProjetoUpdateRequestDTO requestDTO){
         return ResponseEntity.ok().body(projetoService.updateGestor(requestDTO));
     }
+
+
 
     @PutMapping("/alterar-por-supervisor")
     public ResponseEntity<ProjetoResponseDTO> alterarPorSupervisor(@RequestBody ProjetoUpdateRequestDTO requestDTO){

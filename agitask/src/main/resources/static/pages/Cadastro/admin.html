@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Dashboard</title>
+  <link rel="stylesheet" href="../../css/painelCadastroAdmin.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="logo">
+    <img src="../../assets/logoescura.png" alt="AgiTask Logo" class="logo-img">
+  </div>
+
+  <ul class="menu">
+    <li><i class="ri-dashboard-line"></i> Dashboard</li>
+    <li class="active"><i class="ri-user-settings-line"></i> Gerenciar Usuários</li>
+    <li><i class="ri-team-line"></i> Gerenciar Equipes</li>
+    <li><i class="ri-file-chart-line"></i> Relatórios</li>
+    <li><i class="ri-folder-settings-line"></i> Gerenciar Projetos</li>
+  </ul>
+
+  <div class="colors">
+    <p>   </p>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <h1>Gerenciar Usuários</h1>
+    <div class="user-actions">
+      <i class="ri-notification-3-line"></i>
+      <i class="ri-settings-3-line"></i>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <form>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" placeholder="Nome">
+      </div>
+
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" placeholder="E-mail">
+      </div>
+
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" placeholder="Senha">
+      </div>
+
+      <div class="form-group">
+        <label>Cargo</label>
+        <select>
+          <option>Colaborador</option>
+          <option>Supervisor</option>
+          <option>Gestor</option>
+        </select>
+      </div>
+
+      <button type="submit">Cadastrar Usuário</button>
+    </form>
+  </div>
+
+  <div class="table-section">
+    <h3>Usuários Existentes</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Cargo</th>
+        <th>ID</th>
+        <th>Equipe</th>
+        <th> </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td><td>Equipe Alpha</td><td>Supervisor</td><td>100</td><td>Suporte 1</td>
+        <td>
+          <button class="btn-acao editar">Editar</button>
+          <button class="btn-acao excluir">Excluir</button>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td><td>Equipe Beta</td><td>Funcionário</td><td>101</td><td>TI</td>
+        <td>
+          <button class="btn-acao editar">Editar</button>
+          <button class="btn-acao excluir">Excluir</button>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td><td>Suporte Nível 1</td><td>Funcionário</td><td>102</td><td>Suporte</td>
+        <td>
+          <button class="btn-acao editar">Editar</button>
+          <button class="btn-acao excluir">Excluir</button>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td><td>Gerente Operacional</td><td>Gerente</td><td>103</td><td>Admin</td><td>
+        <button class="btn-acao editar">Editar</button>
+        <button class="btn-acao excluir">Excluir</button>
+      </td>
+      </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
