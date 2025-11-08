@@ -1,5 +1,6 @@
 package com.example.agitask.exception;
 
+import com.example.agitask.exception.*;
 import com.example.agitask.dto.ErrorDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,9 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalHandlerException {
 
-    @ExceptionHandler(com.example.agitask.Exception.ProjetoIdNotFoundException.class)
+    @ExceptionHandler(com.example.agitask.exception.ProjetoIdNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto projetoIdNotFoundException(com.example.agitask.Exception.ProjetoIdNotFoundException ex){
+    public ErrorDto projetoIdNotFoundException(com.example.agitask.exception.ProjetoIdNotFoundException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -24,9 +25,9 @@ public class GlobalHandlerException {
         return errorDto;
     }
 
-    @ExceptionHandler(com.example.agitask.Exception.UsuarioGestorEmailNotFoundException.class)
+    @ExceptionHandler(com.example.agitask.exception.UsuarioGestorEmailNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto usuarioGestorEmailNotFoundException(com.example.agitask.Exception.UsuarioGestorEmailNotFoundException ex){
+    public ErrorDto usuarioGestorEmailNotFoundException(com.example.agitask.exception.UsuarioGestorEmailNotFoundException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -35,9 +36,9 @@ public class GlobalHandlerException {
         return errorDto;
     }
 
-    @ExceptionHandler(com.example.agitask.Exception.UsuarioColaboradorEmailNotFoundException.class)
+    @ExceptionHandler(com.example.agitask.exception.UsuarioColaboradorEmailNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto usuarioColaboradorEmailNotFoundException(com.example.agitask.Exception.UsuarioColaboradorEmailNotFoundException ex){
+    public ErrorDto usuarioColaboradorEmailNotFoundException(com.example.agitask.exception.UsuarioColaboradorEmailNotFoundException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -46,9 +47,9 @@ public class GlobalHandlerException {
         return errorDto;
     }
 
-    @ExceptionHandler(com.example.agitask.Exception.UsuarioSupervisorEmailNotFoundException.class)
+    @ExceptionHandler(com.example.agitask.exception.UsuarioSupervisorEmailNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto usuarioSupervisorEmailNotFoundException(com.example.agitask.Exception.UsuarioSupervisorEmailNotFoundException ex){
+    public ErrorDto usuarioSupervisorEmailNotFoundException(com.example.agitask.exception.UsuarioSupervisorEmailNotFoundException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -56,20 +57,9 @@ public class GlobalHandlerException {
         );
         return errorDto;
     }
-    @ExceptionHandler(com.example.agitask.Exception.UsuarioIsNotGestorException.class)
+    @ExceptionHandler(com.example.agitask.exception.UsuarioIsNotGestorException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto usuarioIsNotGestorException(com.example.agitask.Exception.UsuarioSupervisorEmailNotFoundException ex){
-        ErrorDto errorDto = new ErrorDto(
-                ex.getMessage(),
-                "Por gentileza, verificar as informações fornecidas",
-                LocalDateTime.now()
-        );
-        return errorDto;
-    }
-
-    @ExceptionHandler(com.example.agitask.Exception.UsuarioIsNotGestorOrSupervisorException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto UsuarioIsNotGestorOrSupervisorException(com.example.agitask.Exception.UsuarioIsNotGestorOrSupervisorException ex){
+    public ErrorDto usuarioIsNotGestorException(com.example.agitask.exception.UsuarioSupervisorEmailNotFoundException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -78,9 +68,9 @@ public class GlobalHandlerException {
         return errorDto;
     }
 
-    @ExceptionHandler(com.example.agitask.Exception.ProjetoIsNotTarefaException.class)
+    @ExceptionHandler(com.example.agitask.exception.UsuarioIsNotGestorOrSupervisorException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto projetoIsNotTarefaException(com.example.agitask.Exception.ProjetoIsNotTarefaException ex){
+    public ErrorDto UsuarioIsNotGestorOrSupervisorException(com.example.agitask.exception.UsuarioIsNotGestorOrSupervisorException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -88,9 +78,20 @@ public class GlobalHandlerException {
         );
         return errorDto;
     }
-    @ExceptionHandler(com.example.agitask.Exception.ProjetoIsNotProjetoException.class)
+
+    @ExceptionHandler(com.example.agitask.exception.ProjetoIsNotTarefaException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto projetoIsNotProjetoException(com.example.agitask.Exception.ProjetoIsNotTarefaException ex){
+    public ErrorDto projetoIsNotTarefaException(com.example.agitask.exception.ProjetoIsNotTarefaException ex){
+        ErrorDto errorDto = new ErrorDto(
+                ex.getMessage(),
+                "Por gentileza, verificar as informações fornecidas",
+                LocalDateTime.now()
+        );
+        return errorDto;
+    }
+    @ExceptionHandler(com.example.agitask.exception.ProjetoIsNotProjetoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto projetoIsNotProjetoException(com.example.agitask.exception.ProjetoIsNotTarefaException ex){
         ErrorDto errorDto = new ErrorDto(
                 ex.getMessage(),
                 "Por gentileza, verificar as informações fornecidas",
@@ -126,7 +127,6 @@ public class GlobalHandlerException {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDto); // 409 CONFLICT
     }
 
-
     //Serve para pegar erros genericos
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorDto> handleRuntime(RuntimeException ex) {
@@ -137,11 +137,5 @@ public class GlobalHandlerException {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
     }
-
-
-
-
-
-
 
 }

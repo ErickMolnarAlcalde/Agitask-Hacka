@@ -1,13 +1,12 @@
 package com.example.agitask.mapper;
 
-import com.example.agitask.Exception.UsuarioGestorEmailNotFoundException;
-import com.example.agitask.Exception.UsuarioSupervisorEmailNotFoundException;
+import com.example.agitask.exception.UsuarioGestorEmailNotFoundException;
+import com.example.agitask.exception.UsuarioSupervisorEmailNotFoundException;
 import com.example.agitask.dto.ProjetoRequestDTO;
 import com.example.agitask.dto.ProjetoResponseDTO;
 import com.example.agitask.enums.Status;
 import com.example.agitask.model.Projeto;
 import com.example.agitask.model.Usuario;
-import com.example.agitask.repository.ProjetoRepository;
 import com.example.agitask.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -46,6 +46,8 @@ public class Projeto {
 
     private LocalDateTime prazo;
 
+    private LocalDateTime dataConclusao;
+
     @ManyToOne
     @JoinColumn(name = "gestor_id")
     private Usuario gestor;
