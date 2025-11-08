@@ -1,18 +1,21 @@
 package com.example.agitask.dto;
 
 import com.example.agitask.enums.CargoUsuario;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-public record UsuarioResponseDTO(
+import java.util.UUID;
 
-        @NotBlank
-        String nome,
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UsuarioResponseDTO {
 
-        @NotBlank
-        @Email
-        String email,
-
-        @NotBlank
-        CargoUsuario cargo) {
+        private UUID id;
+        private String nome;
+        private String email;
+        private Boolean ativo;
+        private Boolean ferias;
+        private CargoUsuario cargo;
 }

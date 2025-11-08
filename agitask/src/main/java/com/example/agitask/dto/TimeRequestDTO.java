@@ -4,6 +4,7 @@ import com.example.agitask.model.Usuario;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.util.List;
 public class TimeRequestDTO {
 
     private Long idTime;
-    private Long idSupervisor;
-    private List<Long> idsColaboradores;
+    private UUID idSupervisor;
+    private List<UUID> idsColaboradores;
 
 }

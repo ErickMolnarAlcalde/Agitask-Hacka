@@ -25,13 +25,13 @@ public class Time {
 
     @ManyToMany
     @JoinTable(
-            name = "squad_colaboradores",
+            name = "time_colaboradores",
             joinColumns = @JoinColumn(name = "id_time"),
             inverseJoinColumns = @JoinColumn(name = "id_colaborador")
     )
     private List<Usuario> colaboradores = new ArrayList<>();
 
-    public void adcionarColaborador(Usuario usuario) {
+    public void adicionarColaborador(Usuario usuario) {
         this.colaboradores.add(usuario);
     }
 

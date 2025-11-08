@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private CargoUsuario cargo;
 
+    /*
     @OneToMany(mappedBy = "gestor")
     private List<Tarefa> tarefaGerenciadas;
 
@@ -44,6 +46,7 @@ public class Usuario {
 
     @OneToMany(mappedBy = "colaborador")
     private List<Tarefa> tarefaExecutadas;
+
 
     public Usuario(UsuarioRequestDTO dados) {
         this.nome = dados.nome();
@@ -57,4 +60,5 @@ public class Usuario {
         this.email = dados.email();
         this.cargo = dados.cargo();
     }
+    */
 }

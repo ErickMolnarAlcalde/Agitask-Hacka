@@ -1,9 +1,11 @@
 package com.example.agitask.dto;
 
+import com.example.agitask.enums.CargoUsuario;
 import com.example.agitask.model.Usuario;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,8 +15,11 @@ import java.util.List;
 public class TimeResponseDTO {
 
     private Long idTime;
-    private Long supervisorId;
+
+    private UUID supervisorId;
     private String supervisorNome;
-    private List<Usuario> colaboradores;
+    private CargoUsuario supervisorCargo;
+
+    private List<UsuarioResponseDTO> colaboradores;
 
 }

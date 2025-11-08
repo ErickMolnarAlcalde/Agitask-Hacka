@@ -24,25 +24,27 @@ public class UsuarioService {
     @Transactional
     public UsuarioResponseDTO criarUsuarioPorAdmin(UsuarioRequestDTO usuarioRequestDTO) {
         // Verifica se email já está cadastrado
-        if (emailJaCadastrado(usuarioRequestDTO.email())) {
+        if (emailJaCadastrado(usuarioRequestDTO.getEmail())) {
             throw new RuntimeException("Email já cadastrado");
         }
 
         Usuario novoUsuario = usuarioMapper.toEntity(usuarioRequestDTO);
+        novoUsuario.setFerias(false);
+        novoUsuario.setAtivo(true);
         Usuario salvo = usuarioRepository.save(novoUsuario);
-        return usuarioMapper.toResponse(salvo);
+        return usuarioMapper.toResponseDTO(salvo);
     }
 
     @Transactional
     public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO usuarioRequestDTO) {
 
         // Verifica se email já está cadastrado
-        if (emailJaCadastrado(usuarioRequestDTO.email())) {
+        if (emailJaCadastrado(usuarioRequestDTO.getEmail())) {
             throw new RuntimeException("Email já cadastrado");
         }
 
         // Buscar Usuario por email
-        Usuario usuario = buscarPorEmail(usuarioRequestDTO.emailCargo());
+        Usuario usuario = buscarPorEmail(usuarioRequestDTO.getEmail());
 
         // Colaborador não pode criar usuarios
         if (usuario.getCargo().equals(CargoUsuario.COLABORADOR)) {
@@ -51,23 +53,23 @@ public class UsuarioService {
 
         // Gestor pode criar supervisor e colaborador
         if (usuario.getCargo().equals(CargoUsuario.GESTOR)) {
-            if (usuarioRequestDTO.cargo().equals(usuario.getCargo())) {
+            if (usuarioRequestDTO.getCargo().equals(usuario.getCargo())) {
                 throw new RuntimeException("Gestor não pode criar outro gestor");
             } else {
                 Usuario novoUsuario = usuarioMapper.toEntity(usuarioRequestDTO);
                 Usuario salvo = usuarioRepository.save(novoUsuario);
-                return usuarioMapper.toResponse(salvo);
+                return usuarioMapper.toResponseDTO(salvo);
             }
         }
 
         // Supervisor pode criar apenas colaborador
         if (usuario.getCargo().equals(CargoUsuario.SUPERVISOR)) {
-            if (usuarioRequestDTO.cargo().equals(usuario.getCargo()) || usuarioRequestDTO.cargo().equals(CargoUsuario.GESTOR)) {
+            if (usuarioRequestDTO.getCargo().equals(usuario.getCargo()) || usuarioRequestDTO.getCargo().equals(CargoUsuario.GESTOR)) {
                 throw new RuntimeException("Supervisor não pode criar outro supervisor ou gestor");
             } else {
                 Usuario novoUsuario = usuarioMapper.toEntity(usuarioRequestDTO);
                 Usuario salvo = usuarioRepository.save(novoUsuario);
-                return usuarioMapper.toResponse(salvo);
+                return usuarioMapper.toResponseDTO(salvo);
             }
         }
         return null;
@@ -76,15 +78,13 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public UsuarioResponseDTO buscarUsuarioPorEmail(String email) {
         Usuario usuario = buscarPorEmail(email);
-        return usuarioMapper.toResponse(usuario);
+        return usuarioMapper.toResponseDTO(usuario);
     }
 
     @Transactional(readOnly = true)
     public List<UsuarioResponseDTO> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
-        return usuarios.stream()
-                .map(usuarioMapper::toResponse)
-                .toList();
+        return usuarioMapper.toResponseDTOList(usuarios);
     }
 
     /*
@@ -104,7 +104,7 @@ public class UsuarioService {
         }
         usuario.setFerias(true);
         Usuario emFerias = usuarioRepository.save(usuario);
-        return usuarioMapper.toResponse(emFerias);
+        return usuarioMapper.toResponseDTO(emFerias);
     }
 
     @Transactional
@@ -115,7 +115,7 @@ public class UsuarioService {
         }
         usuario.setFerias(false);
         Usuario voltou = usuarioRepository.save(usuario);
-        return usuarioMapper.toResponse(voltou);
+        return usuarioMapper.toResponseDTO(voltou);
     }
 
     @Transactional
@@ -126,7 +126,7 @@ public class UsuarioService {
         }
         usuario.setAtivo(true);
         Usuario ativado = usuarioRepository.save(usuario);
-        return usuarioMapper.toResponse(ativado);
+        return usuarioMapper.toResponseDTO(ativado);
     }
 
     @Transactional
@@ -137,7 +137,7 @@ public class UsuarioService {
         }
         usuario.setAtivo(false);
         Usuario desativado = usuarioRepository.save(usuario);
-        return usuarioMapper.toResponse(desativado);
+        return usuarioMapper.toResponseDTO(desativado);
     }
 
     private Usuario buscarPorEmail(String email) {
