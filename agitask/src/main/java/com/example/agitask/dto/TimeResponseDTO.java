@@ -1,6 +1,9 @@
 package com.example.agitask.dto;
 
+import com.example.agitask.model.Usuario;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,7 +13,8 @@ import lombok.*;
 public class TimeResponseDTO {
 
     private Long idTime;
-    /*private List<Usuario> idSupervisorResponsavel;
-    private List<Usuario> idUsuarioColaborador;*/
+    private Long supervisorId;
+    private String supervisorNome;
+    private List<Usuario> colaboradores;
 
 }
