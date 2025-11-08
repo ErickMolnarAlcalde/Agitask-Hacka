@@ -1,4 +1,4 @@
-package com.example.agitask.Exception;
+package com.example.agitask.exception;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

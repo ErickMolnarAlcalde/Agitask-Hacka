@@ -1,6 +1,6 @@
 package com.example.agitask.service;
 
-import com.example.agitask.Exception.*;
+import com.example.agitask.exception.*;
 import com.example.agitask.dto.ProjetoDeleteDto;
 import com.example.agitask.dto.ProjetoRequestDTO;
 import com.example.agitask.dto.ProjetoResponseDTO;
