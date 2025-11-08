@@ -1,4 +1,4 @@
-package com.example.agitask.Exception;
+package com.example.agitask.exception.*;
 
 import com.example.agitask.dto.ErrorDto;
 import org.springframework.dao.DataIntegrityViolationException;
