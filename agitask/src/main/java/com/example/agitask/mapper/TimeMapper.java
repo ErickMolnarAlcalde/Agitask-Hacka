@@ -64,7 +64,7 @@ public interface TimeMapper {
                             .email(u.getEmail())
                             .ativo(u.getAtivo())
                             .ferias(u.getFerias())
-                            .cargo(u.getCargo())
+                            .cargo(u.getCargo().toString())
                             .build();
                 })
                 .collect(Collectors.toList());

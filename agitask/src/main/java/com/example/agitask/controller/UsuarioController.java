@@ -1,6 +1,7 @@
 package com.example.agitask.controller;
 
 import com.example.agitask.dto.UsuarioLoginRequestDTO;
+import com.example.agitask.dto.UsuarioLoginResponseDTO;
 import com.example.agitask.dto.UsuarioRequestDTO;
 import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.service.UsuarioService;
@@ -21,8 +22,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public boolean loginUsuario(@RequestBody UsuarioLoginRequestDTO dto) {
-        return usuarioService.loginUsuario(dto);
+    public UsuarioLoginResponseDTO loginUsuario(@RequestBody UsuarioLoginRequestDTO dto) {
+        UsuarioLoginResponseDTO login = usuarioService.loginUsuario(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(login).getBody();
     }
 
     @PostMapping("/admin")

@@ -1,6 +1,5 @@
 package com.example.agitask.dto;
 
-import com.example.agitask.enums.CargoUsuario;
 import lombok.*;
 
 import java.util.UUID;
@@ -17,5 +16,5 @@ public class UsuarioResponseDTO {
         private String email;
         private Boolean ativo;
         private Boolean ferias;
-        private CargoUsuario cargo;
+        private String cargo;
 }
