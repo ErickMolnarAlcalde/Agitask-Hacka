@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,12 @@ public class Usuario {
     private Boolean ativo;
 
     private Boolean ferias;
+
+    @Column(name = "data_entrada_ferias")
+    private LocalDateTime dataEntradaFerias;
+
+    @Column(name = "data_saida_ferias")
+    private LocalDateTime dataSaidaFerias;
 
     @Enumerated(EnumType.STRING)
     private CargoUsuario cargo;
