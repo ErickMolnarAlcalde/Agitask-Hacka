@@ -14,9 +14,9 @@ public interface TimeMapper {
     Time toEntity(TimeRequestDTO dto);
 
     // Entidade → ResponseDTO
-    TimeResponseDTO toResponseDTO(Time entityClass);
+    TimeResponseDTO toResponseDTO(Time time);
 
     // Lista de entidades → Lista de ResponseDTO
-    List<TimeResponseDTO> toResponseDTOList(List<Time> entityClasses);
+    List<TimeResponseDTO> toResponseDTOList(List<Time> time);
 
 }
