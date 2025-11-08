@@ -11,5 +11,8 @@
         <module name="agitask.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="agitask.test" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

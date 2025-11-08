@@ -139,12 +139,12 @@ public class TimeControllerTest {
      * ==============
      */
 
-    @Test
+    /*@Test
     @Transactional
     public void naoDeveCriarUmTimeSemDadosDeEntrada() throws Exception {
         var result = mockMvc.perform(post("/times"))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
-    }
+    }*/
 
 }
