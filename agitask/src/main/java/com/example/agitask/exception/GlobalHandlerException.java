@@ -1,4 +1,4 @@
-package com.example.agitask.Exception;
+package com.example.agitask.exception;
 
 import com.example.agitask.dto.ErrorDto;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -130,11 +130,5 @@ public class GlobalHandlerException {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
     }
-
-
-
-
-
-
 
 }

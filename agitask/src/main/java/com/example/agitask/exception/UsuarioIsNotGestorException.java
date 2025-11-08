@@ -1,6 +1,4 @@
-package com.example.agitask.Exception;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.example.agitask.exception;
 
 public  class UsuarioIsNotGestorException extends RuntimeException {
 

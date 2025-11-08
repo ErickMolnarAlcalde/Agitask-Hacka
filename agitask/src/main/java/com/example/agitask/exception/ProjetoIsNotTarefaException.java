@@ -1,4 +1,4 @@
-package com.example.agitask.Exception;
+package com.example.agitask.exception;
 
 public class ProjetoIsNotTarefaException extends RuntimeException{
 
