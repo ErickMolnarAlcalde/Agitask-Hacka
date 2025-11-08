@@ -1,9 +1,6 @@
 package com.example.agitask.model;
 
-import com.example.agitask.dto.UsuarioRequestDTO;
-import com.example.agitask.dto.UsuarioResponseDTO;
 import com.example.agitask.enums.CargoUsuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -52,7 +49,7 @@ public class Usuario {
     @OneToMany(mappedBy = "colaborador")
     private List<Projeto> tarefaExecutadas;
 
-    public Usuario(UsuarioRequestDTO dados) {
+    /*public Usuario(UsuarioRequestDTO dados) {
         this.nome = dados.nome();
         this.senha = dados.senha();
         this.email = dados.email();
@@ -63,5 +60,5 @@ public class Usuario {
         this.nome = dados.nome();
         this.email = dados.email();
         this.cargo = dados.cargo();
-    }
+    }*/
 }
